@@ -26,7 +26,16 @@ app.get('/:id',(req,res)=>{
     } else {
         res.status(404).json({error: "Item not found"});
     }
-})
+});
+
+// POST 
+app.post('/saveItem', (req, res) => {
+    let newItem ={};
+    newItem.id = items.length + 1;
+    newItem.text = req.body.text;
+    items.push(newItem);
+    res.status(201).json(newItem);
+});
 
 app.listen(port, (err)=> {
     if(!err){
