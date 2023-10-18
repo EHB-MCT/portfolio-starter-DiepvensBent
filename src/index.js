@@ -48,18 +48,20 @@ app.post('/saveItem', async (req, res) => {
 });
 
 //PUT
-app.put('/changeItem/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const updatedItem = req.body;
-    const index = items.findIndex((a) => a.id === id);
-  
-    if (index !== -1) {
-        items[index] = { ...items[index], ...updatedItem };
-        res.json(items[index]);
-    } else {
-        res.status(404).json({ error: 'Item not found' });
+app.put('/changeItem/:id', async(req,res)=>{
+    try{
+        const { text } = req.body;
+        const { id } = req.params;
+
+        await db('items').where({ id }).update({
+            text
+        });
+        res.json({id});    
+    } catch(error){
+        res.status(500).json({ error: 'Error updating item.' });
     }
 });
+
 //DELETE
 app.delete('/deleteItem/:id', (req, res) => {
     const id = parseInt(req.params.id);
