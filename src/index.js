@@ -63,33 +63,17 @@ app.put('/changeItem/:id', async(req,res)=>{
 });
 
 //DELETE
-app.delete('/deleteItem/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const index = items.findIndex((a) => a.id === id);
+app.delete('/deleteItem/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
   
-    if (index !== -1) {
-      const deletedItem = items.splice(index, 1)[0];
-      res.json(deletedItem);
-    } else {
-      res.status(404).json({ error: 'Item not found' });
-    }
-  });
-
-
-
-
-//DELETE
-app.delete('/deleteItem/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const index = items.findIndex((a) => a.id === id);
+      await db('items').where({ id }).del();
   
-    if (index !== -1) {
-      const deletedItem = items.splice(index, 1)[0];
-      res.json(deletedItem);
-    } else {
-      res.status(404).json({ error: 'Item not found' });
+      res.json({ message: 'Item deleted successfully.' });
+    } catch (error) {
+      res.status(500).json({ error: 'Error deleting item.' });
     }
-  });
+});
 
 app.listen(port, (err)=> {
     if(!err){
