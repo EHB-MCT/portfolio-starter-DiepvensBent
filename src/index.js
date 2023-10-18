@@ -12,8 +12,9 @@ db.raw("SELECT 1+1").then(d => console.log(d))
 app.use(bodyParser.json());
 
 //GET
-app.get("/", (req,res)=>{
-    res.json(items)
+app.get("/", async (req,res)=>{
+    const results = await db.select("*").table("items")
+    res.json(results)
 });
 
 //GET by id
