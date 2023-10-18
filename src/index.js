@@ -37,6 +37,20 @@ app.post('/saveItem', (req, res) => {
     res.status(201).json(newItem);
 });
 
+//PUT
+app.put('/changeItem/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const updatedItem = req.body;
+    const index = items.findIndex((a) => a.id === id);
+  
+    if (index !== -1) {
+        items[index] = { ...items[index], ...updatedItem };
+        res.json(items[index]);
+    } else {
+        res.status(404).json({ error: 'Item not found' });
+    }
+});
+
 app.listen(port, (err)=> {
     if(!err){
         console.log("running on port " + port);
