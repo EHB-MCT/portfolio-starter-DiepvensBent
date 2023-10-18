@@ -3,11 +3,6 @@ const app = express();
 const bodyParser = require("body-parser")
 const port = 3000;
 
-//Data
-let items = [
-    {id:1,text: "Test"},
-    {id:2,text: "Hello"},
-]
 const knex = require("knex")
 const knexConfig = require("../src/db/knexfile.js")
 const db = knex(knexConfig.development)
