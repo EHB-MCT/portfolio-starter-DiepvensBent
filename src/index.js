@@ -51,6 +51,19 @@ app.put('/changeItem/:id', (req, res) => {
     }
 });
 
+//DELETE
+app.delete('/deleteItem/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = items.findIndex((a) => a.id === id);
+  
+    if (index !== -1) {
+      const deletedItem = items.splice(index, 1)[0];
+      res.json(deletedItem);
+    } else {
+      res.status(404).json({ error: 'Item not found' });
+    }
+  });
+
 app.listen(port, (err)=> {
     if(!err){
         console.log("running on port " + port);
