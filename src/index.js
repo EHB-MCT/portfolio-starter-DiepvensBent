@@ -18,15 +18,21 @@ app.get("/", async (req,res)=>{
 });
 
 //GET by id
-app.get('/:id',(req,res)=>{
-    const id = parseInt(req.params.id);
-    const item = items.find((a)=> a.id ===id);
+app.get('/:id',async(req,res)=>{
+    try{
 
-    if(item){
-        res.json(item);
-    } else {
-        res.status(404).json({error: "Item not found"});
-    }
+        const { id } = req.params;
+
+        const searchedItem = await db('items').where({ id }).first();
+        
+        if (searchedItem) {
+            res.json(searchedItem);
+          } else {
+            res.status(404).json({ error: 'Item not found' });
+          }
+        } catch (error) {
+          res.status(500).json({ error: 'Error fetching item by ID.' });
+        }
 });
 
 // POST 
