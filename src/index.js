@@ -36,12 +36,15 @@ app.get('/:id',async(req,res)=>{
 });
 
 // POST 
-app.post('/saveItem', (req, res) => {
-    let newItem ={};
-    newItem.id = items.length + 1;
-    newItem.text = req.body.text;
-    items.push(newItem);
-    res.status(201).json(newItem);
+app.post('/saveItem', async (req, res) => {
+    try{
+        const {id, text}= req.body;
+        const[itemId]= await db('items').insert({id, text});
+        res.json({id:itemId});
+    }catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error creating item' });
+      }
 });
 
 //PUT
