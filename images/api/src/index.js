@@ -4,7 +4,7 @@ const bodyParser = require("body-parser")
 const port = 3000;
 
 const knex = require("knex")
-const knexConfig = require("../src/db/knexfile.js")
+const knexConfig = require("./db/knexfile.js")
 const db = knex(knexConfig.development)
 
 db.raw("SELECT 1+1").then(d => console.log(d))
