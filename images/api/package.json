@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "",
-    "start": "node src/index.js",
+    "start": "npx knex migrate:latest --cwd src/db && nodemon src/index.js --legacy-watch",
     "dev": "nodemon src/index.js --legacy-watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
