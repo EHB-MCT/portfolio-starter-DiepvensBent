@@ -7,6 +7,7 @@ const knex = require("knex")
 const knexConfig = require("./db/knexfile.js")
 const db = knex(knexConfig.development)
 
+//line to test database connection
 db.raw("SELECT 1+1").then(d => console.log(d))
 
 app.use(bodyParser.json());
