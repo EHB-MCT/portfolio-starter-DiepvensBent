@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run prep && nodemon src/index.js --legacy-watch",
     "dev": "nodemon src/index.js",
-    "test": "jest --detectOpenHandles",
+    "test": "npm run prep && jest --detectOpenHandles --forceExit",
     "test-watch": "jest --watchAll --detectOpenHandles",
     "prep":"npx knex migrate:latest --cwd src/db && npx knex seed:run --cwd src/db"
   },
