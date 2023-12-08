@@ -1,3 +1,6 @@
 node_modules/
 .env
 _backup
+__testbackup
+todo.txt
+
