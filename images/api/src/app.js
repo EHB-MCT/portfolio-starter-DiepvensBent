@@ -23,9 +23,11 @@ app.get("/", async (req,res)=>{
 app.get('/:id',async(req,res)=>{
     try{
 
-        const { id } = req.params;
-        if(id >= 0 && typeof(id) == 'number'){
-            const searchedItem = await db('items').where({ id }).first();
+        const id = parseInt(req.params.id);
+        // console.log(id, typeof(id));
+        if(id >= 0 && typeof(id) == "number" && id < 9999999999){
+            //lookup max int postgres int primary key
+            const searchedItem = await db('items').where('id',id).first();
         
             if (searchedItem) {
                 res.json(searchedItem);
@@ -33,21 +35,24 @@ app.get('/:id',async(req,res)=>{
                 res.status(404).json({ error: 'Item not found' });
             }
         } 
-        }catch (error) {
-          res.status(500).json({ error: 'Error fetching item by ID.' });
-        } //add else function for invalid id
+        else {
+            res.status(401).json({message: "invalid id"})
+        }
+    }catch (error) {
+        res.status(500).json({ error: 'Error fetching item by ID.' });
+    } //add else function for invalid id
 });
 
 // POST 
 app.post('/saveItem', async (req, res) => {
     try{
-        const {id, text}= req.body;
+        const {text}= req.body;
         if (checkItemName(text)) {
-            const[itemId]= await db('items').insert({id, text});
+            const[itemId]= await db('items').insert({text: text}).returning("*");
             res.json({id:itemId});
         }
         else{
-            res.status(400).send({message: 'Item name not formatted correctly'})
+            res.status(401).send({message: 'Item name not formatted correctly'})
         }
     }catch (error) {
         console.error(error);

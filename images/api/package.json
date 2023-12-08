@@ -4,9 +4,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npx knex migrate:latest --cwd src/db && nodemon src/index.js --legacy-watch",
-    "dev": "nodemon src/index.js --legacy-watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run prep && nodemon src/index.js --legacy-watch",
+    "dev": "nodemon src/index.js",
+    "test": "jest --detectOpenHandles",
+    "test-watch": "jest --watchAll --detectOpenHandles",
+    "prep":"npx knex migrate:latest --cwd src/db && npx knex seed:run --cwd src/db"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,12 @@
     "knex": "^2.5.1",
     "mysql2": "^3.6.2",
     "nodemon": "^3.0.1",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "assert": "^2.1.0",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
   }
 }
