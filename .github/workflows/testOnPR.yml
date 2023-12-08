@@ -2,7 +2,7 @@ name: testflow
 
 on:
   pull_request:
-    branches: [ main, development ] 
+    branches: [ main, Develop ] 
 
 env: 
   POSTGRES_USER: test
