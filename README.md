@@ -23,7 +23,7 @@ The project is currently in development. Feel free to explore the codebase, prov
 
 ## Questions and Support
 
-If you have any questions or need support, please open a ticket [here](link-to-issue-tracker). We appreciate your feedback and will address your inquiries as soon as possible.
+If you have any questions or need support, please open a ticket [here](https://github.com/EHB-MCT/portfolio-starter-DiepvensBent/issues). I appreciate your feedback and will address your inquiries as soon as possible.
 
 ## License
 
