@@ -50,22 +50,21 @@ describe('GET /:id', () => {
     expect(dbRecord.length).toBe(0);
   });
 
-  test('should return 401 for negative item Id', async () => {
+  test('should return 400 for negative item Id', async () => {
     const nonExistentitemId = -1;
     const response = await request(app).get(`/${nonExistentitemId}`);
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
 
-  test('should return 401 for string item Id', async () => {
+  test('should return 400 for string item Id', async () => {
     const nonExistentitemId = "test string name";
     const response = await request(app).get(`/${nonExistentitemId}`);
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
 
-  test('should return 401 for too large item Id', async () => {
+  test('should return 400 for too large item Id', async () => {
     const nonExistentitemId = "9999999999";
     const response = await request(app).get(`/${nonExistentitemId}`);
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(400);
   });
-
 });
