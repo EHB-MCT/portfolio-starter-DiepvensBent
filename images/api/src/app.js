@@ -22,7 +22,6 @@ app.get("/", async (req,res)=>{
 //GET by id
 app.get('/:id',async(req,res)=>{
     try{
-
         const id = parseInt(req.params.id);
         
         if(id >= 0 && Number.isInteger(id) && id < 9999999999){
@@ -46,10 +45,10 @@ app.get('/:id',async(req,res)=>{
 // POST 
 app.post('/saveItem', async (req, res) => {
     try{
-        const {text}= req.body;
+        const {text, location_uuid}= req.body;
         if (checkItemName(text)) {
-            const[itemId]= await db('items').insert({text: text}).returning("*");
-            res.json({id:itemId});
+            const itemId= await db('items').insert({text: text, location_uuid}).returning("*");
+            res.json(itemId);
         }
         else{
             res.status(400).send({message: 'Item name not formatted correctly'})
@@ -74,9 +73,12 @@ app.put('/changeItem/:id', async(req,res)=>{
         if (!existingItem || existingItem.length === 0) {
             return res.status(404).json({ error: 'Item not found.' });
         }
-
-        await db('items').where({ id }).update({text});
-        res.json({id: +id});  //+id to convert id to int  
+        if (checkItemName(text)) {
+            await db('items').where({ id }).update({text});
+            res.json({id: +id});  //+id to convert id to int  
+        } else{
+            res.status(400).send({message: 'Item name not formatted correctly'})
+        }
     } catch(error){
         res.status(500).json({ error: 'Error updating item.' });
     }
@@ -85,19 +87,24 @@ app.put('/changeItem/:id', async(req,res)=>{
 //DELETE
 app.delete('/deleteItem/:id', async (req, res) => {
     try {
-        const { id } = req.params;
-        const existingItem = await db('items').select('id').where('id', id);
-
-        if (!existingItem || existingItem.length === 0) {
-            return res.status(404).json({ error: 'Item not found.' });
-        }
+        const id = parseInt(req.params.id);
         
-        await db('items').where({ id }).del();
+        if (id>=0 && Number.isInteger(id) && id < 9999999999) {
+            const existingItem = await db('items').select('id').where('id', id);
+            if (!existingItem || existingItem.length === 0) {
+                return res.status(404).json({ error: 'Item not found.' });
+            }
+
+            await db('items').where({ id }).del();
   
-        res.json({ message: 'Item deleted successfully.' });
-        } catch (error) {
-            res.status(500).json({ error: 'Error deleting item.' });
+            res.json({ message: 'Item deleted successfully.' });
+            
+        } else {
+            res.status(400).json({message: "invalid id"})
         }
+    } catch (error) {
+        res.status(500).json({ error: 'Error deleting item.' });
+    }     
     });
 
 module.exports = app;
