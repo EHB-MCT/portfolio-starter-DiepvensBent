@@ -4,6 +4,7 @@ test("Check Item Name",() => {
     expect(checkItemName("")).toBe(false);
     expect(checkItemName(null)).toBe(false);
     expect(checkItemName("i")).toBe(false);
+    expect(checkItemName("CD")).toBe(true);
     expect(checkItemName(1)).toBe(false);
     expect(checkItemName("aznsfdijsbqifbdijsqbsihdbfihjsbdhfbyohqvspiudbipfabidvbaouhbvfdoibaihvbdhabhousvfdusvauvdfyhabofuyeazvofuasbvouhdfbvhoua")).toBe(false);
     expect(checkItemName(false)).toBe(false);
