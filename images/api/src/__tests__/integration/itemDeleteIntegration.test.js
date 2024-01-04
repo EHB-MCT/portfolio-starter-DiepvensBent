@@ -11,7 +11,7 @@ const location = {
 
 const exampleItem = {
     location_uuid: location.uuid,
-    text: 'TEST_delete',
+    itemName: 'TEST_delete',
 };
 
 let deletedItem;

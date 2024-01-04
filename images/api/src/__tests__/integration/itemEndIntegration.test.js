@@ -11,7 +11,7 @@ const location = {
 
 const newItem = {
     location_uuid: location.uuid,
-    text: 'TEST_end',
+    itemName: 'TEST_end',
 };
 
 let itemResponseId;
@@ -36,7 +36,7 @@ describe('End-to-End CRUD Operations', () => {
 
         const dbRecord = await db('items').select('*').first().where('id', itemResponseId);
         expect(dbRecord).toHaveProperty('id',itemResponseId);
-        expect(dbRecord).toHaveProperty('text',newItem.text);
+        expect(dbRecord).toHaveProperty('itemName',newItem.itemName);
         expect(dbRecord).toHaveProperty('location_uuid',newItem.location_uuid);
     });
 
@@ -53,16 +53,16 @@ describe('End-to-End CRUD Operations', () => {
     });
 
     test('should update the created item', async () => {
-        const updatedText = 'UPDATED_TEXT';
+        const updateditemName = 'UPDATED_itemName';
         const response = await request(app)
         .put(`/changeItem/${itemResponseId}`)
-        .send({ text: updatedText });
+        .send({ itemName: updateditemName });
 
         expect(response.status).toBe(200);
 
         const dbRecord = await db('items').select('*').where('id', itemResponseId);
         expect(dbRecord.length).toBeGreaterThan(0);
-        expect(dbRecord[0]).toHaveProperty('text', updatedText);
+        expect(dbRecord[0]).toHaveProperty('itemName', updateditemName);
     })
 
     test('should delete the created item', async () => {

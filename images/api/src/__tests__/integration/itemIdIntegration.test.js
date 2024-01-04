@@ -10,7 +10,7 @@ const location = {
 }
 const item = {
   location_uuid: location.uuid,
-  text: "TEST_id"
+  itemName: "TEST_id"
 };
 
 let newItem;

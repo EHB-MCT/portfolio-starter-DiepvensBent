@@ -45,9 +45,9 @@ app.get('/:id',async(req,res)=>{
 // POST 
 app.post('/saveItem', async (req, res) => {
     try{
-        const {text, location_uuid}= req.body;
-        if (checkItemName(text)) {
-            const itemId= await db('items').insert({text: text, location_uuid}).returning("*");
+        const {itemName, location_uuid}= req.body;
+        if (checkItemName(itemName)) {
+            const itemId= await db('items').insert({itemName: itemName, location_uuid}).returning("*");
             res.json(itemId);
         }
         else{
@@ -62,19 +62,19 @@ app.post('/saveItem', async (req, res) => {
 //PUT
 app.put('/changeItem/:id', async(req,res)=>{
     try{
-        const { text } = req.body;
+        const { itemName } = req.body;
         const { id } = req.params;
 
         const existingItem = await db('items').select('id').where('id', id);
-        if (!text) {
-            return res.status(400).json({ error: 'Text is required in the request body.' });
+        if (!itemName) {
+            return res.status(400).json({ error: 'itemName is required in the request body.' });
         }
 
         if (!existingItem || existingItem.length === 0) {
             return res.status(404).json({ error: 'Item not found.' });
         }
-        if (checkItemName(text)) {
-            await db('items').where({ id }).update({text});
+        if (checkItemName(itemName)) {
+            await db('items').where({ id }).update({itemName});
             res.json({id: +id});  //+id to convert id to int  
         } else{
             res.status(400).send({message: 'Item name not formatted correctly'})

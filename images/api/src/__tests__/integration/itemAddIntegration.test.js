@@ -11,7 +11,7 @@ const location = {
 
 const exampleItem = {
   location_uuid: location.uuid,
-  text: 'TEST_post',
+  itemName: 'TEST_post',
 }
 
 describe('POST /saveItem', () => {
@@ -34,22 +34,22 @@ describe('POST /saveItem', () => {
 
     const dbRecord = await db('items').select('*').first().where('id', itemResponse.id);
     expect(dbRecord).toHaveProperty('id',itemResponse.id);
-    expect(dbRecord).toHaveProperty('text',exampleItem.text);
+    expect(dbRecord).toHaveProperty('itemName',exampleItem.itemName);
     expect(dbRecord).toHaveProperty('location_uuid',exampleItem.location_uuid);
   });
 
   test('should return 400, wrong item record', async () => {
     const response = await request(app)
     .post(`/saveItem`)
-    .send({...exampleItem, text: null});
+    .send({...exampleItem, itemName: null});
 
     expect(response.status).toBe(400);
     
-    const dbRecord = await db('items').select('*').where('text', null);
+    const dbRecord = await db('items').select('*').where('itemName', null);
     expect(dbRecord.length).toBe(0);
   });
 
-  test('should return 400 when text property is missing', async () => {
+  test('should return 400 when itemName property is missing', async () => {
     const response = await request(app)
     .post('/saveItem')
     .send({}); // Empty body
@@ -57,19 +57,19 @@ describe('POST /saveItem', () => {
     expect(response.status).toBe(400);
   });
 
-  test('should return 400 when text property is an empty string', async () => {
+  test('should return 400 when itemName property is an empty string', async () => {
     const response = await request(app)
     .post('/saveItem')
-    .send({ text: ""});
+    .send({ itemName: ""});
 
     expect(response.status).toBe(400);
   });
 
-  test('should return 400 for invalid text property', async () => {
-    const invalidText = 123; // Use a non-string value
+  test('should return 400 for invalid itemName property', async () => {
+    const invaliditemName = 123; // Use a non-string value
     const response = await request(app)
     .post('/saveItem')
-    .send({ text: invalidText });
+    .send({ itemName: invaliditemName });
 
     expect(response.status).toBe(400);
   });
