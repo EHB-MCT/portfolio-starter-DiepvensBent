@@ -4,62 +4,52 @@ const knexfile = require('../../db/knexfile.js');
 const db = require("knex")(knexfile.development);
 const {v4: uuidv4} = require('uuid');
 
-const uuid = uuidv4();
-const location={
+const location = {
   name: "testing_location_post",
-  uuid: uuid
+  uuid: uuidv4()
 }
+
 const exampleItem = {
-  location_uuid: uuid,
-  text: 'TEST_post',
-
+  location_uuid: location.uuid,
+  itemName: 'TEST_post',
 }
-
-let checkItem;
 
 describe('POST /saveItem', () => {
   beforeAll(async () => {
-    const locInsert = await db("locations").insert(location).returning("uuid");   
-    const toCheck = await db("items").insert({...exampleItem}).returning("*");
-    checkItem = toCheck[0];
+    await db("locations").insert(location).returning("uuid");   
   });
 
   afterAll(async () => {
-    await db("locations").delete().where({uuid: checkItem.location_uuid});
-    await db("items").delete().where({id: checkItem.id});
+    await db("locations").delete().where({uuid: exampleItem.location_uuid});
     await db.destroy();
   });
 
   test('should return 200, correct item record', async () => {
     const response = await request(app)
     .post(`/saveItem`)
-    .send(checkItem);
+    .send(exampleItem);
 
-    const itemResponse = response.body.id
-
+    const itemResponse = response.body[0];
     expect(response.status).toBe(200);
 
     const dbRecord = await db('items').select('*').first().where('id', itemResponse.id);
     expect(dbRecord).toHaveProperty('id',itemResponse.id);
-    expect(dbRecord).toHaveProperty('text',checkItem.text);
-    expect(dbRecord).toHaveProperty('location_uuid',itemResponse.location_uuid);
+    expect(dbRecord).toHaveProperty('itemName',exampleItem.itemName);
+    expect(dbRecord).toHaveProperty('location_uuid',exampleItem.location_uuid);
   });
 
   test('should return 400, wrong item record', async () => {
     const response = await request(app)
     .post(`/saveItem`)
-    .send({
-    ...checkItem,
-    text: null
-    });
+    .send({...exampleItem, itemName: null});
+
     expect(response.status).toBe(400);
-    const itemResponse = response.body.id
     
-    const dbRecord = await db('items').select('*').where('text', null);
+    const dbRecord = await db('items').select('*').where('itemName', null);
     expect(dbRecord.length).toBe(0);
   });
 
-  test('should return 400 when text property is missing', async () => {
+  test('should return 400 when itemName property is missing', async () => {
     const response = await request(app)
     .post('/saveItem')
     .send({}); // Empty body
@@ -67,21 +57,20 @@ describe('POST /saveItem', () => {
     expect(response.status).toBe(400);
   });
 
-  test('should return 400 when text property is an empty string', async () => {
+  test('should return 400 when itemName property is an empty string', async () => {
     const response = await request(app)
     .post('/saveItem')
-    .send({ text: "" });
+    .send({ itemName: ""});
 
     expect(response.status).toBe(400);
   });
 
-  test('should return 400 for invalid text property', async () => {
-    const invalidText = 123; // Use a non-string value
+  test('should return 400 for invalid itemName property', async () => {
+    const invaliditemName = 123; // Use a non-string value
     const response = await request(app)
-        .post('/saveItem')
-        .send({ text: invalidText });
+    .post('/saveItem')
+    .send({ itemName: invaliditemName });
 
     expect(response.status).toBe(400);
   });
-
 });

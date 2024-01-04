@@ -2,23 +2,23 @@ const request = require('supertest');
 const app = require('../../app.js');
 const knexfile = require('../../db/knexfile.js'); 
 const db = require("knex")(knexfile.development);
-const { v4: uuidv4 } = require('uuid');
+const {v4: uuidv4} = require('uuid');
 
-const uuid = uuidv4();
 const location = {
     name: 'testing_location_delete',
-    uuid: uuid
+    uuid: uuidv4()
 };
+
 const exampleItem = {
-    location_uuid: uuid,
-    text: 'TEST_delete',
+    location_uuid: location.uuid,
+    itemName: 'TEST_delete',
 };
 
 let deletedItem;
 
 describe('DELETE /deleteItem/:id', () => {
     beforeAll(async () => {
-        const locInsert = await db("locations").insert(location).returning("uuid");   
+        await db("locations").insert(location).returning("uuid");   
         const newItem = await db("items").insert(exampleItem).returning("*");
         deletedItem = newItem[0];
     });
@@ -50,13 +50,36 @@ describe('DELETE /deleteItem/:id', () => {
         const dbRecord = await db('items').select('*').where('id', nonExistentItemId);
         expect(dbRecord.length).toBe(0);
     });
+
+    test('should return 400 for negative input', async () => {
+        const negativeItemId = -1;
+        const response = await request(app)
+        .delete(`/deleteItem/${negativeItemId}`);
     
-    test('should return 500 for invalid input', async () => {
+        expect(response.status).toBe(400);
+    });
+    
+    test('should return 400 for invalid input', async () => {
         const invalidItemId = "test string name";
         const response = await request(app)
         .delete(`/deleteItem/${invalidItemId}`);
     
-        expect(response.status).toBe(500);
-      });
-      
+        expect(response.status).toBe(400);
+    });
+     
+    test('should return 400 for invalid input', async () => {
+        const invalidItemId = "test string name";
+        const response = await request(app)
+        .delete(`/deleteItem/${invalidItemId}`);
+    
+        expect(response.status).toBe(400);
+    });
+
+    test('should return 400 for too large item Id', async () => {
+        const invalidItemId = "9999999999";
+        const response = await request(app)
+        .delete(`/deleteItem/${invalidItemId}`);
+
+        expect(response.status).toBe(400);
+    });
 });
