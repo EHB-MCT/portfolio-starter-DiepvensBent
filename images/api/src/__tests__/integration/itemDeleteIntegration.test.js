@@ -2,15 +2,15 @@ const request = require('supertest');
 const app = require('../../app.js');
 const knexfile = require('../../db/knexfile.js'); 
 const db = require("knex")(knexfile.development);
-const { v4: uuidv4 } = require('uuid');
+const {v4: uuidv4} = require('uuid');
 
-const uuid = uuidv4();
 const location = {
     name: 'testing_location_delete',
-    uuid: uuid
+    uuid: uuidv4()
 };
+
 const exampleItem = {
-    location_uuid: uuid,
+    location_uuid: location.uuid,
     text: 'TEST_delete',
 };
 
@@ -18,7 +18,7 @@ let deletedItem;
 
 describe('DELETE /deleteItem/:id', () => {
     beforeAll(async () => {
-        const locInsert = await db("locations").insert(location).returning("uuid");   
+        await db("locations").insert(location).returning("uuid");   
         const newItem = await db("items").insert(exampleItem).returning("*");
         deletedItem = newItem[0];
     });
