@@ -4,7 +4,7 @@ function checkItemName(name){
         || name.length <=1 
         || typeof(name) != "string"
         || name.trim() !== name // Check for leading or trailing whitespace
-        || name.length > 16
+        || name.length > 24
         || /[!@#$€%^&*(),.?":{}|<>123456789]/.test(name) // Check if name contains symbol
         ){
     return false
