@@ -21,5 +21,4 @@ test("Check Item Name",() => {
     expect(checkItemName("bottle:")).toBe(false);
     expect(checkItemName("123")).toBe(false);
     expect(checkItemName("3couch")).toBe(false);
-
 })

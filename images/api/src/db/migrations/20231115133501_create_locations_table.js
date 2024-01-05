@@ -1,7 +1,7 @@
 exports.up = function (knex) {
     return knex.schema.createTable('locations', (table) =>{
-    table.uuid('uuid').unique().primary();
-    table.string('name');
+        table.uuid('uuid').unique().primary();
+        table.string('name');
     });
 };
   
