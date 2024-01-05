@@ -3,6 +3,7 @@
 ## Purpose
 
 This project is an API written in node.js, intended to serve as a showcase of my programming skills.
+It is an item manager which allows you to add an item, change, delete; search all or by id on two different locations 
 
 ## Quick Start
 
@@ -23,8 +24,8 @@ The project is currently in development. Feel free to explore the codebase, prov
 
 ## Questions and Support
 
-If you have any questions or need support, please open a ticket [here](https://github.com/EHB-MCT/portfolio-starter-DiepvensBent/issues). I appreciate your feedback and will address your inquiries as soon as possible.
+If you have any questions or need support, please open a ticket [Issues](https://github.com/EHB-MCT/portfolio-starter-DiepvensBent/issues). I appreciate your feedback and will address your inquiries as soon as possible.
 
 ## License
 
-This project is licensed under the [MIT License] | (LICENSE).
+This project is licensed under the [MIT License](https://github.com/EHB-MCT/portfolio-starter-DiepvensBent/blob/main/LICENSE).
