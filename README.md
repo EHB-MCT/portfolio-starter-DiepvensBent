@@ -31,9 +31,17 @@ This command will initialize the necessary containers and dependencies specified
     ```
 2. Open a second terminal and run the following command to run all the tests:
     ```bash
-    npm run watch-all
+    npm run test-watch
     ```
 The unit and integration tests will start to run.
+
+### To delete containers, use the following command:
+
+1. Open a terminal in the project directory and run the following command to build and start the testing project:
+
+    ```bash
+    docker-compose -f [insertDockerComposeFileNameHere] down
+    ```
 
 ### To run the dev environment, follow these steps:
 1. If u haven't already copy the `.env.template` file and rename it to `.env`.
