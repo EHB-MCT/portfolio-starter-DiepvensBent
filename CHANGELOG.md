@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Version 1.0.0] - 07-01-2024
+-   Updated readme
+-   Updated changelog
+-   Update docker-compose file
 -   Project Release!
 
 ## [Version 0.3.1] - 06-01-2024

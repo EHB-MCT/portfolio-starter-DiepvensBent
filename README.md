@@ -125,3 +125,7 @@ If you have any questions or need support, please open a ticket [Issues](https:/
 ## License
 
 This project is licensed under the [MIT License](https://github.com/EHB-MCT/portfolio-starter-DiepvensBent/blob/main/LICENSE).
+
+## Changelog
+
+The changelog from this project can be found [here](https://github.com/EHB-MCT/portfolio-starter-DiepvensBent/blob/main/CHANGELOG.md).
