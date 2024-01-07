@@ -35,7 +35,10 @@ To run the test environment, follow these steps:
 ### GET /
 - This route retrieves a list of all items in the database.
 - It returns a JSON array containing all items if successful.
-  
+- **Responses:**
+  - 200 OK: Successful retrieval of the items.
+  - 500 Internal Server Error: Error retrieving items from the database.
+
 ### GET /:id
 - This route retrieves an item by its ID from the database.
 - It returns a JSON object representing the item if successful.
@@ -46,7 +49,8 @@ To run the test environment, follow these steps:
   - 200 OK: Successful retrieval of the item.
   - 404 Not Found: Item not found.
   - 400 Bad Request: Invalid ID.
-
+  - 500 Internal Server Error: Error fetching item by ID.
+  
 ### POST /saveItem
 - This route creates a new item in the database.
 - It expects a JSON body containing item information in the request body.
@@ -59,6 +63,7 @@ To run the test environment, follow these steps:
 - **Responses:**
   - 200 OK: Successful creation of the item.
   - 400 Bad Request: Item name not formatted correctly.
+  - 500 Internal Server Error: Error creating item.
 
 ### PUT /changeItem/:id
 - This route changes the name of an existing item in the database by its ID.
@@ -71,8 +76,9 @@ To run the test environment, follow these steps:
   - `itemName` (string): Updated name of the item.
 - **Responses:**
   - 200 OK: Successful update of the item.
-  - 404 Not Found: Item not found.
   - 400 Bad Request: Invalid ID or item name not formatted correctly.
+  - 404 Not Found: Item not found.
+  - 500 Internal Server Error: Error updating item.
 
 ### DELETE /deleteItem/:id
 - This route deletes an item from the database by its ID.
@@ -82,12 +88,13 @@ To run the test environment, follow these steps:
   - `id` (integer): Unique identifier for the item.
 - **Responses:**
   - 200 OK: Successful deletion of the item.
-  - 404 Not Found: Item not found.
   - 400 Bad Request: Invalid ID.
+  - 404 Not Found: Item not found.
+  - 500 Internal Server Error: Error deleting item.
 
 ## Development
 
-The project is currently in development. Feel free to explore the codebase, provide feedback, or open issues for any questions or improvements.
+The project has currently finished development. Feel free to explore the codebase, provide feedback, or open issues for any questions or improvements.
 
 ## Questions and Support
 
