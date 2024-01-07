@@ -7,7 +7,7 @@ It is an item manager which allows you to add an item, change, delete; search al
 
 ## Quick Start
 
-To run this project, follow these steps:
+### To run this project, follow these steps:
 
 1. Copy the `.env.template` file and rename it to `.env`.
 2. Open a terminal in the project directory and run the following command to build and start the project:
@@ -18,17 +18,31 @@ To run this project, follow these steps:
 
 This command will initialize the necessary containers and dependencies specified in the `docker-compose.yml` file.
 
-To run the test environment, follow these steps:
+### To run the test environment, follow these steps:
 
-1. Open a terminal in the project directory and run the following command to build and start the project:
+1. Open a terminal in the project directory and run the following command to build and start the testing project:
 
     ```bash
     docker-compose -f docker-compose.test.yml up --build
+    ```
+2. Navigate to the api folder you can use cd command to change the directory.
+    ```bash
+    cd .\images\api\
     ```
 2. Open a second terminal and run the following command to run all the tests:
     ```bash
     npm run watch-all
     ```
+The unit and integration tests will start to run.
+
+### To run the dev environment, follow these steps:
+1. If u haven't already copy the `.env.template` file and rename it to `.env`.
+2. Open a terminal in the project directory and run the following command to build and start the project:
+   ```bash
+    docker-compose -f docker-compose.dev.yml up --build
+    ```
+The project will be accessible on localhost:80
+
 
 ## Routes
 
