@@ -39,14 +39,14 @@ If your contribution involves code changes, make sure to write unit and integrat
 
 ##Reporting Issues
 
-If you encounter any issues with the project, please open a GitHub issue with a clear and descriptive title, including details about the problem and how to reproduce it.
+If you encounter any issues with the project, please open a GitHub issue with a clear and descriptive title, including details about the problem and how to reproduce it. [Issues](https://github.com/EHB-MCT/portfolio-starter-DiepvensBent/issues)
 
 ##Code of Conduct
 
-Please review and adhere to our code of conduct to ensure a respectful and inclusive environment for all contributors.
+Please review and adhere to our code of conduct to ensure a respectful and inclusive environment for all contributors. [Code of Conduct](https://github.com/EHB-MCT/portfolio-starter-DiepvensBent/blob/main/CODE_OF_CONDUCT.md)
 
 ##Licensing
 
-By contributing to this project, you agree to license your contributions under the terms of the MIT License.
+By contributing to this project, you agree to license your contributions under the terms of the MIT License. [License](https://github.com/EHB-MCT/portfolio-starter-DiepvensBent/blob/main/LICENSE)
 
 We appreciate your interest in contributing to this project and look forward to your valuable contributions!
